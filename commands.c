@@ -584,53 +584,53 @@ void cmd_import(sqlite3 *db, const char *format, const char *filename) {
 /* ---------- Help ---------- */
 
 void print_usage(const char *prog_name) {
-    printf("Usage: %s <command> [args]\n\n", prog_name);
-    printf("Commands:\n");
-    printf("  add <text...> [--priority=P] [--tags=a,b]   Add a new idea\n");
-    printf("  list [--status=S] [--priority=P] [--tag=T]\n");
+    printf("%sUsage:%s %s <command> [args]\n\n", color_info(), color_reset_out(), prog_name);
+    printf("%sCommands:%s\n", color_info(), color_reset_out());
+    printf("  %sadd%s <text...> [--priority=P] [--tags=a,b]   Add a new idea\n", color_success(), color_reset_out());
+    printf("  %slist%s [--status=S] [--priority=P] [--tag=T]\n", color_success(), color_reset_out());
     printf("       [--sort=date|priority] [--all]          List ideas\n");
-    printf("  status <id> <new_status>                     Change an idea's status\n");
-    printf("  edit <id> <text...>                           Edit an idea's text\n");
-    printf("  delete <id> [--force]                         Delete an idea\n");
-    printf("  search <keyword>                              Search text and tags\n");
-    printf("  stats                                         Show counts by status\n");
-    printf("  export <csv|json|txt> [file]                  Export all ideas\n");
-    printf("  import <csv|json> <file>                      Import ideas from a file\n");
-    printf("  help [command]                                Show this help, or help for one command\n\n");
+    printf("  %sstatus%s <id> <new_status>                     Change an idea's status\n", color_success(), color_reset_out());
+    printf("  %sedit%s <id> <text...>                           Edit an idea's text\n", color_success(), color_reset_out());
+    printf("  %sdelete%s <id> [--force]                         Delete an idea\n", color_success(), color_reset_out());
+    printf("  %ssearch%s <keyword>                              Search text and tags\n", color_success(), color_reset_out());
+    printf("  %sstats%s                                         Show counts by status\n", color_success(), color_reset_out());
+    printf("  %sexport%s <csv|json|txt> [file]                  Export all ideas\n", color_success(), color_reset_out());
+    printf("  %simport%s <csv|json> <file>                      Import ideas from a file\n", color_success(), color_reset_out());
+    printf("  %shelp%s [command]                                Show this help, or help for one command\n\n", color_success(), color_reset_out());
     print_valid_statuses();
     print_valid_priorities();
 }
 
 void print_command_help(const char *prog_name, const char *command) {
     if (strcmp(command, "add") == 0) {
-        printf("%s add <text...> [--priority=low|medium|high] [--tags=a,b,c]\n", prog_name);
+        printf("%s%s add <text...> [--priority=low|medium|high] [--tags=a,b,c]%s\n", color_info(), prog_name, color_reset_out());
         printf("Adds a new idea with status 'new'. Text can be written without quotes.\n");
     } else if (strcmp(command, "list") == 0) {
-        printf("%s list [--status=S] [--priority=P] [--tag=T] [--sort=date|priority] [--all]\n", prog_name);
+        printf("%s%s list [--status=S] [--priority=P] [--tag=T] [--sort=date|priority] [--all]%s\n", color_info(), prog_name, color_reset_out());
         printf("Lists ideas. By default hides 'completed' and 'discarded' unless --all is given.\n");
     } else if (strcmp(command, "status") == 0) {
-        printf("%s status <id> <new_status>\n", prog_name);
+        printf("%s%s status <id> <new_status>%s\n", color_info(), prog_name, color_reset_out());
         print_valid_statuses();
     } else if (strcmp(command, "edit") == 0) {
-        printf("%s edit <id> <new text...>\n", prog_name);
+        printf("%s%s edit <id> <new text...>%s\n", color_info(), prog_name, color_reset_out());
         printf("Overwrites the idea's text. Creation date is kept.\n");
     } else if (strcmp(command, "delete") == 0) {
-        printf("%s delete <id> [--force]\n", prog_name);
+        printf("%s%s delete <id> [--force]%s\n", color_info(), prog_name, color_reset_out());
         printf("Asks for confirmation unless --force is given.\n");
     } else if (strcmp(command, "search") == 0) {
-        printf("%s search <keyword>\n", prog_name);
+        printf("%s%s search <keyword>%s\n", color_info(), prog_name, color_reset_out());
         printf("Matches against both idea text and tags.\n");
     } else if (strcmp(command, "stats") == 0) {
-        printf("%s stats\n", prog_name);
+        printf("%s%s stats%s\n", color_info(), prog_name, color_reset_out());
         printf("Shows the total idea count and a breakdown by status.\n");
     } else if (strcmp(command, "export") == 0) {
-        printf("%s export <csv|json|txt> [filename]\n", prog_name);
+        printf("%s%s export <csv|json|txt> [filename]%s\n", color_info(), prog_name, color_reset_out());
         printf("Default filename is ideas_export.<format>.\n");
     } else if (strcmp(command, "import") == 0) {
-        printf("%s import <csv|json> <filename>\n", prog_name);
+        printf("%s%s import <csv|json> <filename>%s\n", color_info(), prog_name, color_reset_out());
         printf("Note: JSON import only understands this program's own export format.\n");
     } else {
-        printf("Unknown command: %s\n\n", command);
+        printf("%sUnknown command: %s%s\n\n", color_error(), command, color_reset_out());
         print_usage(prog_name);
     }
 }
